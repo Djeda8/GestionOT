@@ -1,4 +1,6 @@
-﻿namespace DOU.GestionOT.App
+﻿using DOU.GestionOT.App.MVVM.Pages;
+
+namespace DOU.GestionOT.App
 {
     public partial class App : Application
     {

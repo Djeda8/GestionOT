@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:workingDays="clr-namespace:DOU.GestionOT.App.MVVM.Pages.WorkingDays"
+             xmlns:pendingWorkOrders="clr-namespace:DOU.GestionOT.App.MVVM.Pages.WorkOrders.PendingWorkOrders"
+             xmlns:finishedWorkOrders="clr-namespace:DOU.GestionOT.App.MVVM.Pages.WorkOrders.FinishedWorkOrders"
+             xmlns:utilities="clr-namespace:DOU.GestionOT.App.Utilities"
+             x:Class="DOU.GestionOT.App.MVVM.Pages.AppShell"
+             Shell.BackgroundColor="GreenYellow">
+    <Shell.FlyoutIcon>
+        <FontImageSource FontFamily="Icons" Glyph="{x:Static utilities:IconFont.Menu}" Color="{StaticResource IconColor}" />
+    </Shell.FlyoutIcon>
+    
+    <FlyoutItem Title="Working Day">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="Icons" Glyph="{x:Static utilities:IconFont.Tablet}" Color="{StaticResource IconColor}" />
+        </FlyoutItem.Icon>
+        <ShellContent Title="Working Day" ContentTemplate="{DataTemplate workingDays:WorkingDayPage}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Work Orders">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="Icons" Glyph="{x:Static utilities:IconFont.Edit}" Color="{StaticResource IconColor}" />
+        </FlyoutItem.Icon>
+        <ShellContent Title="Pending Work Orders" ContentTemplate="{DataTemplate pendingWorkOrders:PendingWorkOrdersPage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="Icons" Glyph="{x:Static utilities:IconFont.Edit}" Color="{StaticResource IconColor}" />
+            </ShellContent.Icon>
+        </ShellContent>
+        <ShellContent Title="Finished Work Orders" ContentTemplate="{DataTemplate finishedWorkOrders:FinishedWorkOrdersPage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="Icons" Glyph="{x:Static utilities:IconFont.Doc}" Color="{StaticResource IconColor}" />
+            </ShellContent.Icon>
+        </ShellContent>
+    </FlyoutItem>
+</Shell>
