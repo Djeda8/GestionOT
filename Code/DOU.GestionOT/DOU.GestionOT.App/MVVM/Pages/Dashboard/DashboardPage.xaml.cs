@@ -1,14 +1,14 @@
 using DOU.GestionOT.App.MVVM.ViewModels;
-using DOU.GestionOT.App.MVVM.ViewModels.Login;
+using DOU.GestionOT.App.MVVM.ViewModels.Dashboard;
 
-namespace DOU.GestionOT.App.MVVM.Pages.Login;
+namespace DOU.GestionOT.App.MVVM.Pages.Dashboard;
 
-public partial class LoginPage : ContentPage
+public partial class DashboardPage : ContentPage
 {
-	public LoginPage(LoginViewModel vm)
+	public DashboardPage(DashboardViewModel vm)
 	{
 		InitializeComponent();
-	    BindingContext = vm;
+		BindingContext = vm;
 	}
 
     protected override void OnAppearing()

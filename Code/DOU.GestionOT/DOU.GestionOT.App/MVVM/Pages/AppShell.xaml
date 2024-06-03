@@ -1,36 +1,220 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:login="clr-namespace:DOU.GestionOT.App.MVVM.Pages.Login"
+             xmlns:startupPages="clr-namespace:DOU.GestionOT.App.MVVM.Pages.Startup"
+             xmlns:dashboard="clr-namespace:DOU.GestionOT.App.MVVM.Pages.Dashboard"
              xmlns:workingDays="clr-namespace:DOU.GestionOT.App.MVVM.Pages.WorkingDays"
              xmlns:pendingWorkOrders="clr-namespace:DOU.GestionOT.App.MVVM.Pages.WorkOrders.PendingWorkOrders"
              xmlns:finishedWorkOrders="clr-namespace:DOU.GestionOT.App.MVVM.Pages.WorkOrders.FinishedWorkOrders"
              xmlns:utilities="clr-namespace:DOU.GestionOT.App.Utilities"
+             xmlns:viewmodels="clr-namespace:DOU.GestionOT.App.MVVM.ViewModels"
              x:Class="DOU.GestionOT.App.MVVM.Pages.AppShell"
-             Shell.BackgroundColor="GreenYellow">
+             Shell.BackgroundColor="Orange"
+             FlyoutBackgroundColor="PaleGoldenrod">
+
+    <Shell.TitleView>
+        <Grid ColumnDefinitions=".8*,.2*">
+            <Label
+                FontFamily="Ballega"
+                FontSize="Large"
+                HorizontalOptions="Center"
+                Text="Gestión OT"
+                TextColor="White"
+                VerticalOptions="Center" />
+            <Label
+                Grid.Column="1"
+                FontFamily="Icons"
+                FontSize="20"
+                HorizontalOptions="Center"
+                Text="{x:Static utilities:IconFont.Search}"
+                TextColor="white"
+                VerticalOptions="Center" />
+        </Grid>
+    </Shell.TitleView>
+
+    <Shell.FlyoutBackdrop>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Offset="0.1" Color="Orange"/>
+            <GradientStop Offset="0.6" Color="PaleGoldenrod"/>
+        </LinearGradientBrush>
+    </Shell.FlyoutBackdrop>
+
+
     <Shell.FlyoutIcon>
         <FontImageSource FontFamily="Icons" Glyph="{x:Static utilities:IconFont.Menu}" Color="{StaticResource IconColor}" />
     </Shell.FlyoutIcon>
+
+    <Shell.FlyoutHeader>
+        <Grid BackgroundColor="Black" HeightRequest="150">
+            <Image
+                Aspect="AspectFill"
+                Opacity=".5"
+                Source="ots_head.png" />
+            <Label
+                FontFamily="Ballega"
+                FontSize="Large"
+                HorizontalOptions="Center"
+                Text="Gestión OT"
+                TextColor="White"
+                VerticalOptions="Center" />
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <Shell.FlyoutFooter>
+        <Grid
+            Padding="15" 
+            BackgroundColor="{StaticResource Footer}"
+            HeightRequest="150"
+            RowDefinitions="*,*,*">
+            <Label HeightRequest="20"
+                FontAttributes="Bold"
+                HorizontalOptions="Center"
+                Text="Powered by:"
+                TextColor="{StaticResource Gray600}" />
+            <Label
+                HeightRequest="30"
+                Grid.Row="1"
+                FontAttributes="Bold"
+                FontSize="25"
+                HorizontalOptions="Center"
+                Text=".NET MAUI"
+                TextColor="{StaticResource Gray600}" />
+
+            <Button Text="Sing Out" Grid.Row="2" Command="{Binding SignOutCommand}"/>
+        </Grid>
+    </Shell.FlyoutFooter>
+
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid
+                ColumnDefinitions=".2*, .8*"
+                HeightRequest="75"
+                RowSpacing="0">
+                <Image
+                    HeightRequest="30"                    
+                    Source="{Binding FlyoutIcon}"
+                    VerticalOptions="Center" />
+                <Label
+                    Grid.Column="1"
+                    Margin="20,0,0,0"
+                    FontSize="17"
+                    Text="{Binding Title}"
+                    TextColor="Black"
+                    VerticalOptions="Center" />
+                <Rectangle x:Name="background"
+                    Grid.ColumnSpan="2"
+                    Fill="Black"
+                    Opacity=".1" />
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter TargetName="background" Property="Rectangle.Fill" Value="White" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter TargetName="background" Property="Rectangle.Fill" Value="Black" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+    <Shell.MenuItemTemplate>
+        <DataTemplate>
+            <Grid
+                ColumnDefinitions=".2*, .8*"
+                HeightRequest="75"
+                RowSpacing="0">
+                <Image
+                    HeightRequest="30"
+                    Source="{Binding FlyoutIcon}"
+                    VerticalOptions="Center" />
+                <Label
+                    Grid.Column="1"
+                    Margin="20,0,0,0"
+                    FontSize="17"
+                    Text="{Binding Title}"
+                    TextColor="Black"
+                    VerticalOptions="Center" />
+                <Rectangle
+                    x:Name="background"
+                    Grid.ColumnSpan="2"
+                    Fill="White"
+                    Opacity=".1" />
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter TargetName="background" Property="Rectangle.Fill" Value="White" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter TargetName="background" Property="Rectangle.Fill" Value="Black" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Grid>
+        </DataTemplate>
+    </Shell.MenuItemTemplate>
     
-    <FlyoutItem Title="Working Day">
+    <FlyoutItem Title="Dashboard">
+        <ShellContent
+            Title="Dashboard"
+            ContentTemplate="{DataTemplate dashboard:DashboardPage}"
+            Route="DashboardPage" />
+    </FlyoutItem>
+    
+    <FlyoutItem Title="Working Day" Route="WorkingDayPage">
         <FlyoutItem.Icon>
             <FontImageSource FontFamily="Icons" Glyph="{x:Static utilities:IconFont.Tablet}" Color="{StaticResource IconColor}" />
         </FlyoutItem.Icon>
         <ShellContent Title="Working Day" ContentTemplate="{DataTemplate workingDays:WorkingDayPage}"/>
     </FlyoutItem>
 
-    <FlyoutItem Title="Work Orders">
+    <FlyoutItem Title="Work Orders" Route="WorkOrders">
         <FlyoutItem.Icon>
             <FontImageSource FontFamily="Icons" Glyph="{x:Static utilities:IconFont.Edit}" Color="{StaticResource IconColor}" />
         </FlyoutItem.Icon>
-        <ShellContent Title="Pending Work Orders" ContentTemplate="{DataTemplate pendingWorkOrders:PendingWorkOrdersPage}">
+        <ShellContent Title="Pending Work Orders" Route="PendingWorkOrdersPage" ContentTemplate="{DataTemplate pendingWorkOrders:PendingWorkOrdersPage}">
             <ShellContent.Icon>
                 <FontImageSource FontFamily="Icons" Glyph="{x:Static utilities:IconFont.Edit}" Color="{StaticResource IconColor}" />
             </ShellContent.Icon>
         </ShellContent>
-        <ShellContent Title="Finished Work Orders" ContentTemplate="{DataTemplate finishedWorkOrders:FinishedWorkOrdersPage}">
+        <ShellContent Title="Finished Work Orders" Route="FinishedWorkOrdersPage" ContentTemplate="{DataTemplate finishedWorkOrders:FinishedWorkOrdersPage}">
             <ShellContent.Icon>
                 <FontImageSource FontFamily="Icons" Glyph="{x:Static utilities:IconFont.Doc}" Color="{StaticResource IconColor}" />
             </ShellContent.Icon>
         </ShellContent>
     </FlyoutItem>
+
+    <MenuItem Command="{Binding SignOutCommand}" Text="Sign out">
+        <MenuItem.IconImageSource>
+            <FontImageSource
+                FontFamily="Icons"
+                Glyph="{x:Static utilities:IconFont.Exit}"
+                Color="{StaticResource IconColor}" />
+        </MenuItem.IconImageSource>
+    </MenuItem> 
+    <MenuItem Command="{Binding AddCommand}" Text="Add">
+        <MenuItem.IconImageSource>
+            <FontImageSource
+                FontFamily="Icons"
+                Glyph="{x:Static utilities:IconFont.Exit}"
+                Color="{StaticResource IconColor}" />
+        </MenuItem.IconImageSource>
+    </MenuItem>
+
 </Shell>
