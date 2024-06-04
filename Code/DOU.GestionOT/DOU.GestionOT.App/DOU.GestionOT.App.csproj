@@ -112,6 +112,9 @@
 	  <MauiXaml Update="MVVM\Pages\WorkOrders\FinishedWorkOrders\FinishedWorkOrdersPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="MVVM\Pages\WorkOrders\PendingWorkOrders\PendingWorkOrderDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="MVVM\Pages\WorkOrders\PendingWorkOrders\PendingWorkOrdersPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

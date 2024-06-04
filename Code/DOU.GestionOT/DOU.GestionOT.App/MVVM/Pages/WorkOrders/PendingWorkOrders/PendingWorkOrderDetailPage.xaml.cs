@@ -3,13 +3,13 @@ using DOU.GestionOT.App.MVVM.ViewModels.WorkOrders.PendingWorkOrders;
 
 namespace DOU.GestionOT.App.MVVM.Pages.WorkOrders.PendingWorkOrders;
 
-public partial class PendingWorkOrdersPage : ContentPage
+public partial class PendingWorkOrderDetailPage : ContentPage
 {
-	public PendingWorkOrdersPage(PendingWorkOrdersViewModel vm)
+	public PendingWorkOrderDetailPage(PendingWorkOrderDetailViewModel vm)
 	{
 		InitializeComponent();
-		BindingContext = vm;
-	}
+        BindingContext = vm;
+    }
     protected override void OnAppearing()
     {
         var bindingContext = BindingContext as BaseViewModel;

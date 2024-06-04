@@ -2,7 +2,6 @@
 <Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:login="clr-namespace:DOU.GestionOT.App.MVVM.Pages.Login"
-             xmlns:startupPages="clr-namespace:DOU.GestionOT.App.MVVM.Pages.Startup"
              xmlns:dashboard="clr-namespace:DOU.GestionOT.App.MVVM.Pages.Dashboard"
              xmlns:workingDays="clr-namespace:DOU.GestionOT.App.MVVM.Pages.WorkingDays"
              xmlns:pendingWorkOrders="clr-namespace:DOU.GestionOT.App.MVVM.Pages.WorkOrders.PendingWorkOrders"

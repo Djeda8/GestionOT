@@ -1,6 +1,7 @@
 ﻿using DOU.GestionOT.App.MVVM.Models;
 using DOU.GestionOT.App.MVVM.Pages;
 using DOU.GestionOT.App.MVVM.Pages.Login;
+using DOU.GestionOT.App.MVVM.Pages.WorkOrders.PendingWorkOrders;
 
 namespace DOU.GestionOT.App
 {
@@ -21,6 +22,7 @@ namespace DOU.GestionOT.App
         {
             // Global Routes
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
+            Routing.RegisterRoute(nameof(PendingWorkOrderDetailPage), typeof(PendingWorkOrderDetailPage));
         }
     }
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:DOU.GestionOT.App.MVVM.ViewModels.WorkOrders.PendingWorkOrders"
+             xmlns:utilities="clr-namespace:DOU.GestionOT.App.Utilities"
+             x:Class="DOU.GestionOT.App.MVVM.Pages.WorkOrders.PendingWorkOrders.PendingWorkOrderDetailPage"
+             x:DataType="viewmodels:PendingWorkOrderDetailViewModel"
+             Shell.TabBarIsVisible="False"
+             Shell.FlyoutBehavior="Disabled"
+             Title="PendingWorkOrderDetailPage">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}">
+            <BackButtonBehavior.IconOverride>
+                <FontImageSource FontFamily="Icons" Glyph="{x:Static utilities:IconFont.Exit}" Color="{StaticResource IconColor}" />
+            </BackButtonBehavior.IconOverride>
+        </BackButtonBehavior>
+    </Shell.BackButtonBehavior>
+    <VerticalStackLayout>
+        <Label 
+            Text="{Binding Id}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>

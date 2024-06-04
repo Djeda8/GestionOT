@@ -1,12 +1,51 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:DOU.GestionOT.App.MVVM.ViewModels.WorkOrders.PendingWorkOrders"
+             xmlns:models="clr-namespace:DOU.GestionOT.App.MVVM.Models.Ots"
              x:Class="DOU.GestionOT.App.MVVM.Pages.WorkOrders.PendingWorkOrders.PendingWorkOrdersPage"
+             x:DataType="viewmodels:PendingWorkOrdersViewModel"
              Title="PendingWorkOrdersPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <CollectionView ItemsSource="{Binding Ots}"
+                    SelectionMode="Single"
+                    SelectedItem="{Binding SelectedOT,Mode=Default}"
+                    SelectionChangedCommand="{Binding SelectionChangedCommand}">
+        <CollectionView.ItemsLayout>
+            <GridItemsLayout
+                Orientation="Vertical"
+                VerticalItemSpacing="3">
+            </GridItemsLayout>
+        </CollectionView.ItemsLayout>
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="models:OT">
+                <Border Padding="0" Margin="3">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20,0,0,20" />
+                    </Border.StrokeShape>
+                    <Grid 
+                        Padding="0"
+                        Margin="15,10,15,0"
+                        ColumnDefinitions=".25*,.25*,.25*,.25*"
+                        RowDefinitions="*,*,*,*,*,*">
+                        <Label Grid.Row="0" Grid.Column="0" Text="Número:" FontAttributes="Bold"></Label>
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding Numero}"></Label>
+                        <Label Grid.Row="0" Grid.Column="2" Text="Serie:" FontAttributes="Bold"></Label>
+                        <Label Grid.Row="0" Grid.Column="3" Text="{Binding Serie}" ></Label>
+                        <Label Grid.Row="1" Grid.Column="0" Text="Tipo:" FontAttributes="Bold"></Label>
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding Tipo}" Grid.ColumnSpan="2" ></Label>
+                        <Label Grid.Row="2" Grid.Column="0" Text="Cliente:" FontAttributes="Bold"></Label>
+                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding Cliente}" Grid.ColumnSpan="2" ></Label>
+                        <Label Grid.Row="3" Grid.Column="0" Text="Dirección:" FontAttributes="Bold"></Label>
+                        <Label Grid.Row="3" Grid.Column="1" Text="{Binding Direccion}" Grid.ColumnSpan="2" ></Label>
+                        <Label Grid.Row="4" Grid.Column="0" Text="Fecha:" FontAttributes="Bold"></Label>
+                        <Label Grid.Row="4" Grid.Column="1" Text="{Binding Fecha, StringFormat='{0:dd-MM-yyyy}'}"></Label>
+                        <Label Grid.Row="4" Grid.Column="2" Text="Hora:" FontAttributes="Bold"></Label>
+                        <Label Grid.Row="4" Grid.Column="3" Text="{Binding Fecha, StringFormat='{0:HH:mm}' }" ></Label>
+                        <Label Grid.Row="5" Grid.Column="0" Text="Estado:" FontAttributes="Bold"></Label>
+                        <Label Grid.Row="5" Grid.Column="1" Text="{Binding Estado}" Grid.ColumnSpan="2" ></Label>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
 </ContentPage>

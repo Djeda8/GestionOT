@@ -42,6 +42,7 @@ namespace DOU.GestionOT.App
             builder.Services.AddSingleton<AdminDashboardPage>();
             builder.Services.AddSingleton<WorkingDayPage>();
             builder.Services.AddSingleton<PendingWorkOrdersPage>();
+            builder.Services.AddSingleton<PendingWorkOrderDetailPage>();
             builder.Services.AddSingleton<FinishedWorkOrdersPage>();
 
             // ViewModels
@@ -50,6 +51,7 @@ namespace DOU.GestionOT.App
             builder.Services.AddSingleton<DashboardViewModel>();
             builder.Services.AddSingleton<WorkingDayViewModel>();
             builder.Services.AddSingleton<PendingWorkOrdersViewModel>();
+            builder.Services.AddSingleton<PendingWorkOrderDetailViewModel>();
             builder.Services.AddSingleton<FinishedWorkOrdersViewModel>();
 
             return builder.Build();
