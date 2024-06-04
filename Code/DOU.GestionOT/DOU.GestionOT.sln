@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOU.GestionOT.App", "DOU.GestionOT.App\DOU.GestionOT.App.csproj", "{D96199CC-BB3F-498B-9F73-F11A24D816E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DOU.GestionOT.App", "DOU.GestionOT.App\DOU.GestionOT.App.csproj", "{D96199CC-BB3F-498B-9F73-F11A24D816E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOU.GestionOT.WEBI", "DOU.GestionOT.WEBI\DOU.GestionOT.WEBI.csproj", "{EF347252-18A0-427C-8B46-901A0AF6486C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +19,10 @@ Global
 		{D96199CC-BB3F-498B-9F73-F11A24D816E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D96199CC-BB3F-498B-9F73-F11A24D816E9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D96199CC-BB3F-498B-9F73-F11A24D816E9}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{EF347252-18A0-427C-8B46-901A0AF6486C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF347252-18A0-427C-8B46-901A0AF6486C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF347252-18A0-427C-8B46-901A0AF6486C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF347252-18A0-427C-8B46-901A0AF6486C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
