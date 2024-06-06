@@ -1,0 +1,91 @@
+﻿@model DOU.GestionOT.WEBI.Models.OtEstadoViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="Ots" asp-action="Index" method="get">
+    <p>
+
+        <select asp-for="OtEstado" asp-items="Model.Estados">
+            <option value="">All</option>
+        </select>
+
+        OT: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Ots![0].Estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ots![0].CodigoTipo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ots![0].TipoParte)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ots![0].OtKey)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ots![0].Tipo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ots![0].Cliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ots![0].Direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ots![0].Fecha)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Ots!)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoTipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoParte)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OtKey)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

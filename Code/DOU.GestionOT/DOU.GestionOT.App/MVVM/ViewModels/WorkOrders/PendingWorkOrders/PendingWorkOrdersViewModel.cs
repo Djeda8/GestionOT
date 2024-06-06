@@ -67,7 +67,6 @@ namespace DOU.GestionOT.App.MVVM.ViewModels.WorkOrders.PendingWorkOrders
                     Fecha = new DateTime(2016, 6, 30, 21, 00, 00),
                     Estado = "PENDIENTE"
                 }
-
             ];
         }
     }
