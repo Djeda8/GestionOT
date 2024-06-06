@@ -1,4 +1,4 @@
-﻿using DOU.GestionOT.WEBI.Data;
+﻿using DOU.GestionOT.DAL;
 using Microsoft.EntityFrameworkCore;
 
 namespace DOU.GestionOT.WEBI.SeedData
@@ -7,9 +7,9 @@ namespace DOU.GestionOT.WEBI.SeedData
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
-            using (var context = new DOUGestionOTWEBIContext(
+            using (var context = new GestionOTContext(
                 serviceProvider.GetRequiredService<
-                    DbContextOptions<DOUGestionOTWEBIContext>>()))
+                    DbContextOptions<GestionOTContext>>()))
             {
                 // Look for any movies.
                 if (context.Ot.Any())
@@ -33,7 +33,7 @@ namespace DOU.GestionOT.WEBI.SeedData
                         Numero = 34,
                         Serie = "P",
                         Tipo = "PARTE OBRA",
-                        CodigoTipo ="5",
+                        CodigoTipo = "5",
                         Cliente = "CP SENDEJA, 3 - BILBAO",
                         Direccion = "C/ SENDEJA, 3",
                         Fecha = new DateTime(2016, 6, 30, 18, 30, 00),
