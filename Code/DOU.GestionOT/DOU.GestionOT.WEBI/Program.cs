@@ -1,9 +1,10 @@
-using DOU.GestionOT.WEBI.Data;
+using DOU.GestionOT.DAL;
 using DOU.GestionOT.WEBI.SeedData;
 using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<DOUGestionOTWEBIContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DOUGestionOTWEBIContext") ?? throw new InvalidOperationException("Connection string 'DOUGestionOTWEBIContext' not found.")));
+builder.Services.AddDbContext<GestionOTContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection") ?? throw new InvalidOperationException("Connection string 'DOUGestionOTWEBIContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

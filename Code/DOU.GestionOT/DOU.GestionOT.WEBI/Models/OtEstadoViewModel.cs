@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using DOU.GestionOT.BL.Entities;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DOU.GestionOT.WEBI.Models
 {

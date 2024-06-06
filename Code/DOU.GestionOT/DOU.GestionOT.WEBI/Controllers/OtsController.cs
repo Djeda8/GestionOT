@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DOU.GestionOT.BL.Entities;
+using DOU.GestionOT.DAL;
+using DOU.GestionOT.WEBI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using DOU.GestionOT.WEBI.Data;
-using DOU.GestionOT.WEBI.Models;
 
 namespace DOU.GestionOT.WEBI.Controllers
 {
     public class OtsController : Controller
     {
-        private readonly DOUGestionOTWEBIContext _context;
+        private readonly GestionOTContext _context;
 
-        public OtsController(DOUGestionOTWEBIContext context)
+        public OtsController(GestionOTContext context)
         {
             _context = context;
         }
