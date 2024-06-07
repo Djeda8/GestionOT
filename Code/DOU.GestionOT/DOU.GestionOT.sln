@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DOU.GestionOT.App", "DOU.Ge
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DOU.GestionOT.WEBI", "DOU.GestionOT.WEBI\DOU.GestionOT.WEBI.csproj", "{EF347252-18A0-427C-8B46-901A0AF6486C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOU.GestionOT.BL", "DOU.GestionOT.BL\DOU.GestionOT.BL.csproj", "{135C3B00-9AD9-4E36-979C-11DA3597D808}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DOU.GestionOT.BL", "DOU.GestionOT.BL\DOU.GestionOT.BL.csproj", "{135C3B00-9AD9-4E36-979C-11DA3597D808}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOU.GestionOT.DAL", "DOU.GestionOT.DAL\DOU.GestionOT.DAL.csproj", "{B4C0E27C-EE0C-441D-9AC1-F561772D6A47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DOU.GestionOT.DAL", "DOU.GestionOT.DAL\DOU.GestionOT.DAL.csproj", "{B4C0E27C-EE0C-441D-9AC1-F561772D6A47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOU.GestionOT.API", "DOU.GestionOT.API\DOU.GestionOT.API.csproj", "{0D530BC4-4371-4A21-B882-EC75980B1E41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{B4C0E27C-EE0C-441D-9AC1-F561772D6A47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4C0E27C-EE0C-441D-9AC1-F561772D6A47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4C0E27C-EE0C-441D-9AC1-F561772D6A47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D530BC4-4371-4A21-B882-EC75980B1E41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D530BC4-4371-4A21-B882-EC75980B1E41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D530BC4-4371-4A21-B882-EC75980B1E41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D530BC4-4371-4A21-B882-EC75980B1E41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
