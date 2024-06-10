@@ -10,6 +10,7 @@ using DOU.GestionOT.App.MVVM.ViewModels.Login;
 using DOU.GestionOT.App.MVVM.ViewModels.WorkingDays;
 using DOU.GestionOT.App.MVVM.ViewModels.WorkOrders.FinishedWorkOrders;
 using DOU.GestionOT.App.MVVM.ViewModels.WorkOrders.PendingWorkOrders;
+using DOU.GestionOT.App.Services.Ot;
 using Microsoft.Extensions.Logging;
 
 namespace DOU.GestionOT.App
@@ -53,6 +54,9 @@ namespace DOU.GestionOT.App
             builder.Services.AddSingleton<PendingWorkOrdersViewModel>();
             builder.Services.AddSingleton<PendingWorkOrderDetailViewModel>();
             builder.Services.AddSingleton<FinishedWorkOrdersViewModel>();
+
+            // Services
+            builder.Services.AddSingleton<IOtService, OtService>();
 
             return builder.Build();
         }

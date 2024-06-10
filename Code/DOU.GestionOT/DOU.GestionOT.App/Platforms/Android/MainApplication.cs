@@ -3,7 +3,14 @@ using Android.Runtime;
 
 namespace DOU.GestionOT.App
 {
-    [Application]
+    //[Application(UsesCleartextTraffic = true)]
+#if DEBUG 
+    [Application(UsesCleartextTraffic = true)] 
+    // for development
+#else 
+    [Application(UsesCleartextTraffic = false)] 
+    // production 
+#endif
     public class MainApplication : MauiApplication
     {
         public MainApplication(IntPtr handle, JniHandleOwnership ownership)
