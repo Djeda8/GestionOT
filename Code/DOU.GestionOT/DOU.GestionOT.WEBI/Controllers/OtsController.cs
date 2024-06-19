@@ -4,16 +4,19 @@ using DOU.GestionOT.WEBI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using DOU.GestionOT.BL.Services;
 
 namespace DOU.GestionOT.WEBI.Controllers
 {
     public class OtsController : Controller
     {
         private readonly GestionOTContext _context;
+        private readonly IOtBLService _otService;
 
-        public OtsController(GestionOTContext context)
+        public OtsController(GestionOTContext context, IOtBLService otService)
         {
             _context = context;
+            _otService = otService;
         }
 
         // GET: Ots
@@ -24,13 +27,13 @@ namespace DOU.GestionOT.WEBI.Controllers
                 return Problem("Entity set 'DOUGestionOTWEBIContext.Ot'  is null.");
             }
 
+
+            var ots = await _otService.GetOtsAsyncs();
+
             // Use LINQ to get list of genres.
             IQueryable<string> estadosQuery = from m in _context.Ot
                                               orderby m.Estado
                                               select m.Estado;
-
-            var ots = await (from m in _context.Ot
-                             select m).ToListAsync();
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -45,7 +48,7 @@ namespace DOU.GestionOT.WEBI.Controllers
             var movieGenreVM = new OtEstadoViewModel
             {
                 Estados = new SelectList(await estadosQuery.Distinct().ToListAsync()),
-                Ots = ots
+                Ots = ots.ToList(),
             };
 
             return View(movieGenreVM);

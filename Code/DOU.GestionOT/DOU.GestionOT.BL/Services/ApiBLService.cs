@@ -5,13 +5,13 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DOU.GestionOT.App.Services
+namespace DOU.GestionOT.BL.Services
 {
-    public class ApiService
+    public class ApiBLService
     {
         protected HttpClient _client;
 
-        public ApiService()
+        public ApiBLService()
         {
             _client = new HttpClient();
             _client.DefaultRequestHeaders

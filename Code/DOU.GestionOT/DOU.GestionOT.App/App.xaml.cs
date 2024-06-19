@@ -7,7 +7,7 @@ namespace DOU.GestionOT.App
 {
     public partial class App : Application
     {
-        public static UserBasicInfo UserDetails;
+        public static UserBasicInfo UserDetails { get; set; }
 
         public App(IServiceProvider serviceProvider)
         {

@@ -1,47 +1,49 @@
 ﻿using DOU.GestionOT.App.MVVM.Models.Ots;
-using Microsoft.VisualBasic;
-using Newtonsoft.Json;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DOU.GestionOT.BL.Services;
 
 namespace DOU.GestionOT.App.Services.Ot
 {
-    public class OtService : ApiService, IOtService
+    public class OtService : IOtService
     {
-        public async Task<List<OT>> GetOtsAsync()
+        private readonly IOtBLService _otBLService;
+        public OtService(IOtBLService otBLService)
         {
-            var uri = new Uri($"{GlobalSettings.URL}/Ots");
+            _otBLService = otBLService;
+        }
 
-            List<OT> itemList = null;
-
+        public async Task<IEnumerable<OT>> GetOtsAsync()
+        {
             //Check Connectivity
             var current = Connectivity.NetworkAccess;
+            IEnumerable<OT> itemList = null;
+
             if (current == NetworkAccess.Internet)
             {
-                try
-                {
-                    var response = await _client.GetAsync(uri);
+                //var uri = new Uri($"{GlobalSettings.URL}/Ots");
 
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var returnMessage = await response.Content.ReadAsStringAsync();
-
-                        itemList = JsonConvert.DeserializeObject<List<OT>>(returnMessage);
-                    }
-                }
-                catch (Exception ex)
+                var a = await _otBLService.GetOtsAsyncs();
+                itemList = a.Select(x => new OT
                 {
-                    throw new Exception(ex.Message);
+                    Id = x.Id,
+                    Cliente = x.Cliente,
+                    CodigoTipo = x.CodigoTipo,
+                    Direccion = x?.Direccion,
+                    Ejercicio = x.Ejercicio,
+                    Serie = x.Serie,
+                    Estado = x.Estado,
+                    Fecha = x.Fecha,
+                    Numero = x.Numero,
+                    Tipo = x.Tipo,
+                    TipoParte = x.TipoParte
                 }
+                );
+
             }
             else
             {
                 //throw new Exception(AppResources.HttpConnectivityError);
             }
+
             return itemList;
         }
     }

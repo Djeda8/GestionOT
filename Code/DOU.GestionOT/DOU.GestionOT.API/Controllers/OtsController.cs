@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using DOU.GestionOT.BL.Entities;
+using DOU.GestionOT.DAL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DOU.GestionOT.BL.Entities;
-using DOU.GestionOT.DAL;
 
 namespace DOU.GestionOT.API.Controllers
 {

@@ -4,6 +4,6 @@ namespace DOU.GestionOT.App.Services.Ot
 {
     public interface IOtService
     {
-        Task<List<OT>> GetOtsAsync();
+        Task<IEnumerable<OT>> GetOtsAsync();
     }
 }

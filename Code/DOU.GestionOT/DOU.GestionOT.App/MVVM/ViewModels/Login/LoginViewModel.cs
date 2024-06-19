@@ -41,7 +41,6 @@ namespace DOU.GestionOT.App.MVVM.ViewModels.Login
                     userDetails.RoleText = "Admin Role";
                 }
 
-
                 // calling api 
 
                 if (Preferences.ContainsKey(nameof(App.UserDetails)))
