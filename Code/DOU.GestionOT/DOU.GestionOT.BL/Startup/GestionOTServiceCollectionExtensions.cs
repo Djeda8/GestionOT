@@ -1,4 +1,5 @@
-﻿using DOU.GestionOT.BL.Services;
+﻿using DOU.GestionOT.BL.Dto;
+using DOU.GestionOT.BL.Services;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -9,7 +10,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IOtBLService, OtBLService>();
             services.AddScoped<IGestionOTDataSeed, GestionOTDataSeed>();
 
-
+            services.AddAutoMapper(typeof(DtoMappingProfile));
         }
     }
 }

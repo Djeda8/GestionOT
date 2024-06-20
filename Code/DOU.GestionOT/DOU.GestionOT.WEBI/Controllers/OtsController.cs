@@ -1,22 +1,22 @@
-﻿using DOU.GestionOT.BL.Entities;
+﻿using DOU.GestionOT.BL.Dto;
+using DOU.GestionOT.BL.Services;
 using DOU.GestionOT.DAL;
 using DOU.GestionOT.WEBI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using DOU.GestionOT.BL.Services;
 
 namespace DOU.GestionOT.WEBI.Controllers
 {
     public class OtsController : Controller
     {
         private readonly GestionOTContext _context;
-        private readonly IOtBLService _otService;
+        private readonly IOtBLService _otBLService;
 
-        public OtsController(GestionOTContext context, IOtBLService otService)
+        public OtsController(GestionOTContext context, IOtBLService otBLService)
         {
             _context = context;
-            _otService = otService;
+            _otBLService = otBLService;
         }
 
         // GET: Ots
@@ -27,8 +27,7 @@ namespace DOU.GestionOT.WEBI.Controllers
                 return Problem("Entity set 'DOUGestionOTWEBIContext.Ot'  is null.");
             }
 
-
-            var ots = await _otService.GetOtsAsyncs();
+            var ots = await _otBLService.GetOtsAsync();
 
             // Use LINQ to get list of genres.
             IQueryable<string> estadosQuery = from m in _context.Ot
@@ -62,14 +61,14 @@ namespace DOU.GestionOT.WEBI.Controllers
                 return NotFound();
             }
 
-            var ot = await _context.Ot
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (ot == null)
+            var otDto = await _otBLService.GetOtAsync(id);
+
+            if (otDto == null)
             {
                 return NotFound();
             }
 
-            return View(ot);
+            return View(otDto);
         }
 
         // GET: Ots/Create
@@ -83,15 +82,18 @@ namespace DOU.GestionOT.WEBI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Estado,CodigoTipo,TipoParte,Ejercicio,Serie,Numero,Tipo,Cliente,Direccion,Fecha")] Ot ot)
+        public async Task<IActionResult> Create([Bind("Id,Estado,CodigoTipo,TipoParte,Ejercicio,Serie,Numero,Tipo,Cliente,Direccion,Fecha")] OtDto otDto)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(ot);
-                await _context.SaveChangesAsync();
+                //_context.Add(ot);
+                //await _context.SaveChangesAsync();
+
+                await _otBLService.PostOtAsync(otDto);
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(ot);
+            return View(otDto);
         }
 
         // GET: Ots/Edit/5
@@ -102,12 +104,13 @@ namespace DOU.GestionOT.WEBI.Controllers
                 return NotFound();
             }
 
-            var ot = await _context.Ot.FindAsync(id);
-            if (ot == null)
+            var otDto = await _otBLService.GetOtAsync(id);
+
+            if (otDto == null)
             {
                 return NotFound();
             }
-            return View(ot);
+            return View(otDto);
         }
 
         // POST: Ots/Edit/5
@@ -115,9 +118,9 @@ namespace DOU.GestionOT.WEBI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Estado,CodigoTipo,TipoParte,Ejercicio,Serie,Numero,Tipo,Cliente,Direccion,Fecha")] Ot ot)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Estado,CodigoTipo,TipoParte,Ejercicio,Serie,Numero,Tipo,Cliente,Direccion,Fecha")] OtDto otDto)
         {
-            if (id != ot.Id)
+            if (id != otDto.Id)
             {
                 return NotFound();
             }
@@ -126,12 +129,12 @@ namespace DOU.GestionOT.WEBI.Controllers
             {
                 try
                 {
-                    _context.Update(ot);
+                    await _otBLService.PutOtAsync(otDto);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!OtExists(ot.Id))
+                    if (!OtExists(otDto.Id))
                     {
                         return NotFound();
                     }
@@ -142,7 +145,7 @@ namespace DOU.GestionOT.WEBI.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(ot);
+            return View(otDto);
         }
 
         // GET: Ots/Delete/5
@@ -153,14 +156,14 @@ namespace DOU.GestionOT.WEBI.Controllers
                 return NotFound();
             }
 
-            var ot = await _context.Ot
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (ot == null)
+            var otDto = await _otBLService.GetOtAsync(id);
+
+            if (otDto == null)
             {
                 return NotFound();
             }
 
-            return View(ot);
+            return View(otDto);
         }
 
         // POST: Ots/Delete/5
@@ -168,10 +171,10 @@ namespace DOU.GestionOT.WEBI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var ot = await _context.Ot.FindAsync(id);
-            if (ot != null)
+            var otDto = await _otBLService.GetOtAsync(id);
+            if (otDto != null)
             {
-                _context.Ot.Remove(ot);
+                await _otBLService.DeleteOtAsync(otDto);
             }
 
             await _context.SaveChangesAsync();

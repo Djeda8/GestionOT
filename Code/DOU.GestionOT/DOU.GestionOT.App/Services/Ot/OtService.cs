@@ -1,4 +1,5 @@
 ﻿using DOU.GestionOT.App.MVVM.Models.Ots;
+using DOU.GestionOT.BL.Dto;
 using DOU.GestionOT.BL.Services;
 
 namespace DOU.GestionOT.App.Services.Ot
@@ -11,33 +12,15 @@ namespace DOU.GestionOT.App.Services.Ot
             _otBLService = otBLService;
         }
 
-        public async Task<IEnumerable<OT>> GetOtsAsync()
+        public async Task<IEnumerable<OtDto>> GetOtsAsync()
         {
             //Check Connectivity
             var current = Connectivity.NetworkAccess;
-            IEnumerable<OT> itemList = null;
+            IEnumerable<OtDto> itemList = null;
 
             if (current == NetworkAccess.Internet)
             {
-                //var uri = new Uri($"{GlobalSettings.URL}/Ots");
-
-                var a = await _otBLService.GetOtsAsyncs();
-                itemList = a.Select(x => new OT
-                {
-                    Id = x.Id,
-                    Cliente = x.Cliente,
-                    CodigoTipo = x.CodigoTipo,
-                    Direccion = x?.Direccion,
-                    Ejercicio = x.Ejercicio,
-                    Serie = x.Serie,
-                    Estado = x.Estado,
-                    Fecha = x.Fecha,
-                    Numero = x.Numero,
-                    Tipo = x.Tipo,
-                    TipoParte = x.TipoParte
-                }
-                );
-
+                itemList = await _otBLService.GetOtsAsync();
             }
             else
             {

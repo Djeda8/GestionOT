@@ -1,4 +1,4 @@
-﻿using DOU.GestionOT.BL.Entities;
+﻿using DOU.GestionOT.DAL.Entities;
 
 namespace DOU.GestionOT.BL.Services
 {
@@ -12,7 +12,7 @@ namespace DOU.GestionOT.BL.Services
                 CreateOt(44, "P", "PARTE OBRA", "5", "CP SENDEJA, 3 - BILBAO","C/ SENDEJA, 3", new DateTime(2016, 6, 30, 18, 30, 00), "PENDIENTE"),
                 CreateOt(45, "P", "PARTE CCTV", "5", "CP URETAMENDI 49 A 71","C/ URETAMENDI, 49", new DateTime(2016, 6, 30, 21, 00, 00), "PENDIENTE"),
 
-                
+
             };
             return ots;
 

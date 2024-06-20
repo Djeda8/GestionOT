@@ -1,5 +1,4 @@
-﻿using DOU.GestionOT.BL.Entities;
-using DOU.GestionOT.BL.Services;
+﻿using DOU.GestionOT.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
@@ -8,8 +7,6 @@ namespace DOU.GestionOT.DAL
 {
     public class GestionOTContext : DbContext
     {
-        private readonly IGestionOTDataSeed _dataSeed;
-
         public GestionOTContext(DbContextOptions<GestionOTContext> options)
             : base(options)
         {
@@ -29,10 +26,5 @@ namespace DOU.GestionOT.DAL
                 return new GestionOTContext(builder.Options);
             }
         }
-
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    //modelBuilder.Entity<Ot>().HasData(_dataSeed.GetInitialOts());
-        //}
     }
 }

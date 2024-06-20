@@ -1,9 +1,9 @@
-﻿using DOU.GestionOT.App.MVVM.Models.Ots;
+﻿using DOU.GestionOT.BL.Dto;
 
 namespace DOU.GestionOT.App.Services.Ot
 {
     public interface IOtService
     {
-        Task<IEnumerable<OT>> GetOtsAsync();
+        Task<IEnumerable<OtDto>> GetOtsAsync();
     }
 }

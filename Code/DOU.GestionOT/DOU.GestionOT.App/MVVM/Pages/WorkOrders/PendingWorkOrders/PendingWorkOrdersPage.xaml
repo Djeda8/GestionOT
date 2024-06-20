@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:DOU.GestionOT.App.MVVM.ViewModels.WorkOrders.PendingWorkOrders"
-             xmlns:models="clr-namespace:DOU.GestionOT.App.MVVM.Models.Ots"
+             xmlns:models="assembly=DOU.GestionOT.BL;clr-namespace:DOU.GestionOT.BL.Dto"
              x:Class="DOU.GestionOT.App.MVVM.Pages.WorkOrders.PendingWorkOrders.PendingWorkOrdersPage"
              x:DataType="viewmodels:PendingWorkOrdersViewModel"
              Title="PendingWorkOrdersPage">
@@ -17,7 +17,7 @@
             </GridItemsLayout>
         </CollectionView.ItemsLayout>
         <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="models:OT">
+            <DataTemplate x:DataType="models:OtDto">
                 <Border Padding="0" Margin="3">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="20,0,0,20" />

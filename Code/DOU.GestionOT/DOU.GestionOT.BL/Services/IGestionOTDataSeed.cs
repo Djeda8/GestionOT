@@ -1,4 +1,4 @@
-﻿using DOU.GestionOT.BL.Entities;
+﻿using DOU.GestionOT.DAL.Entities;
 
 namespace DOU.GestionOT.BL.Services
 {

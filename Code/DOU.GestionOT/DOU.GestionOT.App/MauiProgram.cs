@@ -1,4 +1,5 @@
-﻿using DOU.GestionOT.App.MVVM.Pages;
+﻿using AutoMapper;
+using DOU.GestionOT.App.MVVM.Pages;
 using DOU.GestionOT.App.MVVM.Pages.Dashboard;
 using DOU.GestionOT.App.MVVM.Pages.Login;
 using DOU.GestionOT.App.MVVM.Pages.WorkingDays;
@@ -11,6 +12,7 @@ using DOU.GestionOT.App.MVVM.ViewModels.WorkingDays;
 using DOU.GestionOT.App.MVVM.ViewModels.WorkOrders.FinishedWorkOrders;
 using DOU.GestionOT.App.MVVM.ViewModels.WorkOrders.PendingWorkOrders;
 using DOU.GestionOT.App.Services.Ot;
+using DOU.GestionOT.BL.Dto;
 using DOU.GestionOT.BL.Services;
 using Microsoft.Extensions.Logging;
 
@@ -60,7 +62,18 @@ namespace DOU.GestionOT.App
             builder.Services.AddSingleton<IOtService, OtService>();
             builder.Services.AddSingleton<IOtBLService, OtBLService>();
 
+            DependencyService.RegisterSingleton(CreateMapper());
+
             return builder.Build();
+        }
+
+        public static IMapper CreateMapper()
+        {
+            var mapperConfiguration = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<DtoMappingProfile>();
+            });
+            return mapperConfiguration.CreateMapper();
         }
     }
 }

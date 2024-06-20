@@ -1,3 +1,4 @@
+using DOU.GestionOT.BL.Dto;
 using DOU.GestionOT.DAL;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +25,8 @@ builder.Services.AddDbContext<GestionOTContext>(options => options.UseSqlServer(
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddAutoMapper(typeof(DtoMappingProfile));
 
 var app = builder.Build();
 
