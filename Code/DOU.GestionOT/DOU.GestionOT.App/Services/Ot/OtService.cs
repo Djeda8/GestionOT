@@ -1,5 +1,4 @@
-﻿using DOU.GestionOT.App.MVVM.Models.Ots;
-using DOU.GestionOT.BL.Dto;
+﻿using DOU.GestionOT.BL.Dto;
 using DOU.GestionOT.BL.Services;
 
 namespace DOU.GestionOT.App.Services.Ot

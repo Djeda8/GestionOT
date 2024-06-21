@@ -59,7 +59,6 @@ namespace DOU.GestionOT.App
             builder.Services.AddSingleton<FinishedWorkOrdersViewModel>();
 
             // Services
-            builder.Services.AddSingleton<IOtService, OtService>();
             builder.Services.AddSingleton<IOtBLService, OtBLService>();
 
             DependencyService.RegisterSingleton(CreateMapper());
