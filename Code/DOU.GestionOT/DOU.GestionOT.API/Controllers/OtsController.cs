@@ -1,9 +1,8 @@
-﻿using AutoMapper;
+﻿using DOU.GestionOT.API.Domain.Commands;
+using DOU.GestionOT.API.Domain.Queries;
 using DOU.GestionOT.BL.Dto;
-using DOU.GestionOT.DAL;
-using DOU.GestionOT.DAL.Entities;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace DOU.GestionOT.API.Controllers
 {
@@ -11,42 +10,32 @@ namespace DOU.GestionOT.API.Controllers
     [ApiController]
     public class OtsController : ControllerBase
     {
-        private readonly GestionOTContext _context;
-        private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
-        public OtsController(GestionOTContext context, IMapper mapper)
+        public OtsController(IMediator mediator)
         {
-            _context = context;
-            _mapper = mapper;
+            _mediator = mediator;
         }
 
         // GET: api/Ots
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<OtDto>>> GetOt()
+        public async Task<ActionResult<IEnumerable<OtDto>>> GetOts()
         {
-            IQueryable<Ot> query = _context.Ot;
-
-            var result = await _mapper.ProjectTo<OtDto>(query).ToListAsync();
-
-            return result;
+            var ots = await _mediator.Send(new GetOtDtosQuery());
+            return Ok(ots);
         }
 
         // GET: api/Ots/5
         [HttpGet("{id}")]
         public async Task<ActionResult<OtDto>> GetOt(int id)
         {
-            //var ot = await _context.Ot.FindAsync(id);
-
-            IQueryable<Ot> query = _context.Ot.Where(x => x.Id == id);
-
-            var result = await _mapper.ProjectTo<OtDto>(query).FirstOrDefaultAsync();
-
-            if (result == null)
+            var query = new FindOtDtoByIdQuery { Id = id };
+            var book = await _mediator.Send(query);
+            if (book == null)
             {
                 return NotFound();
             }
-
-            return result;
+            return Ok(book);
         }
 
         // PUT: api/Ots/5
@@ -59,25 +48,8 @@ namespace DOU.GestionOT.API.Controllers
                 return BadRequest();
             }
 
-            Ot ot = _mapper.Map<Ot>(otdto);
-
-            _context.Entry(ot).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!OtExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            var command = new UpdateOtDtoCommand(id, otdto.Estado, otdto.CodigoTipo, otdto.TipoParte, otdto.Ejercicio, otdto.Serie, otdto.Numero, otdto.Tipo, otdto.Cliente, otdto.Direccion, otdto.Fecha);
+            await _mediator.Send(command);
 
             return NoContent();
         }
@@ -87,35 +59,18 @@ namespace DOU.GestionOT.API.Controllers
         [HttpPost]
         public async Task<ActionResult<OtDto>> PostOt(OtDto otdto)
         {
-            Ot ot = _mapper.Map<Ot>(otdto);
-
-            _context.Ot.Add(ot);
-            await _context.SaveChangesAsync();
-
-            OtDto otdtonew = _mapper.Map<OtDto>(ot);
-
-            return CreatedAtAction("GetOt", new { id = otdtonew.Id }, otdtonew);
+            var command = new CreateOtDtoCommand(otdto.Estado, otdto.CodigoTipo, otdto.TipoParte, otdto.Ejercicio, otdto.Serie, otdto.Numero, otdto.Tipo, otdto.Cliente, otdto.Direccion, otdto.Fecha);
+            var otdtoNew = await _mediator.Send(command);
+            return CreatedAtAction("GetOt", new { id = otdtoNew.Id }, otdtoNew);
         }
 
         // DELETE: api/Ots/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOt(int id)
         {
-            var ot = await _context.Ot.FindAsync(id);
-            if (ot == null)
-            {
-                return NotFound();
-            }
-
-            _context.Ot.Remove(ot);
-            await _context.SaveChangesAsync();
-
+            var command = new DeleteOtDtoCommand(id);
+            await _mediator.Send(command);
             return NoContent();
-        }
-
-        private bool OtExists(int id)
-        {
-            return _context.Ot.Any(e => e.Id == id);
         }
     }
 }
