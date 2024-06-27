@@ -22,7 +22,9 @@ namespace DOU.GestionOT.API.Domain.Queries
         {
             IQueryable<Ot> query = _context.Ot;
 
-            var result = await _mapper.ProjectTo<OtDto>(query).ToListAsync(cancellationToken);
+            var ots = await query.ToListAsync(cancellationToken);
+
+            var result = _mapper.Map<IEnumerable<OtDto>>(ots);
 
             return result;
         }
