@@ -21,7 +21,7 @@
 
 	<ItemGroup>
 		<Using Include="Xunit" />
-		<ProjectReference Include="..\DOU.GestionOT.API\DOU.GestionOT.API.csproj" />
+		<ProjectReference Include="..\DOU.GestionOT.API2\DOU.GestionOT.API2.csproj" />
 	</ItemGroup>
 
 </Project>
