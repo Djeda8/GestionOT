@@ -16,18 +16,24 @@ namespace DOU.GestionOT.API.Domain.Commands
         public string? Direccion { get; set; }
         public DateTime Fecha { get; set; }
 
-        public CreateOtDtoCommand(string estado, string codigoTipo, string? tipoParte, int ejercicio, string serie, int numero, string tipo, string cliente, string? direccion, DateTime fecha)
+        public CreateOtDtoCommand(OtDto otDto)
         {
-            Estado = estado ?? throw new ArgumentNullException(nameof(estado));
-            CodigoTipo = codigoTipo ?? throw new ArgumentNullException(nameof(codigoTipo));
-            TipoParte = tipoParte;
-            Ejercicio = ejercicio;
-            Serie = serie ?? throw new ArgumentNullException(nameof(serie));
-            Numero = numero;
-            Tipo = tipo ?? throw new ArgumentNullException(nameof(tipo));
-            Cliente = cliente ?? throw new ArgumentNullException(nameof(cliente));
-            Direccion = direccion;
-            Fecha = fecha;
+            if (string.IsNullOrEmpty(otDto.Estado)) throw new ArgumentNullException(nameof(otDto));
+            if (string.IsNullOrEmpty(otDto.CodigoTipo)) throw new ArgumentNullException(nameof(otDto));
+            if (string.IsNullOrEmpty(otDto.Serie)) throw new ArgumentNullException(nameof(otDto));
+            if (string.IsNullOrEmpty(otDto.Tipo)) throw new ArgumentNullException(nameof(otDto));
+            if (string.IsNullOrEmpty(otDto.Cliente)) throw new ArgumentNullException(nameof(otDto));
+
+            Estado = otDto.Estado;
+            CodigoTipo = otDto.CodigoTipo;
+            TipoParte = otDto.TipoParte;
+            Ejercicio = otDto.Ejercicio;
+            Serie = otDto.Serie;
+            Numero = otDto.Numero;
+            Tipo = otDto.Tipo;
+            Cliente = otDto.Cliente;
+            Direccion = otDto.Direccion;
+            Fecha = otDto.Fecha;
         }
     }
 }
