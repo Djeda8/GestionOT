@@ -30,12 +30,12 @@ namespace DOU.GestionOT.API.Controllers
         public async Task<ActionResult<OtDto>> GetOt(int id)
         {
             var query = new FindOtDtoByIdQuery { Id = id };
-            var book = await _mediator.Send(query);
-            if (book == null)
+            var otDto = await _mediator.Send(query);
+            if (otDto == null)
             {
                 return NotFound();
             }
-            return Ok(book);
+            return Ok(otDto);
         }
 
         // PUT: api/Ots/5
@@ -59,7 +59,8 @@ namespace DOU.GestionOT.API.Controllers
         [HttpPost]
         public async Task<ActionResult<OtDto>> PostOt(OtDto otdto)
         {
-            var command = new CreateOtDtoCommand(otdto.Estado, otdto.CodigoTipo, otdto.TipoParte, otdto.Ejercicio, otdto.Serie, otdto.Numero, otdto.Tipo, otdto.Cliente, otdto.Direccion, otdto.Fecha);
+            //var command = new CreateOtDtoCommand(otdto.Estado, otdto.CodigoTipo, otdto.TipoParte, otdto.Ejercicio, otdto.Serie, otdto.Numero, otdto.Tipo, otdto.Cliente, otdto.Direccion, otdto.Fecha);
+            var command = new CreateOtDtoCommand(otdto);
             var otdtoNew = await _mediator.Send(command);
             return CreatedAtAction("GetOt", new { id = otdtoNew.Id }, otdtoNew);
         }

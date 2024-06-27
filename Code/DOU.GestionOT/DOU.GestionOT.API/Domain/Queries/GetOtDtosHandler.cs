@@ -14,8 +14,8 @@ namespace DOU.GestionOT.API.Domain.Queries
 
         public GetOtDtosHandler(GestionOTContext context, IMapper mapper)
         {
-            _context = context;
-            _mapper = mapper;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         public async Task<IEnumerable<OtDto>> Handle(GetOtDtosQuery request, CancellationToken cancellationToken)

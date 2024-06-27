@@ -10,7 +10,7 @@ namespace DOU.GestionOT.API.Domain.Commands
 
         public DeleteOtDtoHandler(GestionOTContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public async Task Handle(DeleteOtDtoCommand command, CancellationToken cancellationToken)
