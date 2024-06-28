@@ -44,13 +44,13 @@ namespace DOU.GestionOT.WEBI.Controllers
                 ots = ots.Where(x => string.Equals(x.Estado, otEstado)).ToList();
             }
 
-            var movieGenreVM = new OtEstadoViewModel
+            var estadoViewVM = new OtEstadoViewModel
             {
                 Estados = new SelectList(await estadosQuery.Distinct().ToListAsync()),
                 Ots = ots.ToList(),
             };
 
-            return View(movieGenreVM);
+            return View(estadoViewVM);
         }
 
         // GET: Ots/Details/5
@@ -86,9 +86,6 @@ namespace DOU.GestionOT.WEBI.Controllers
         {
             if (ModelState.IsValid)
             {
-                //_context.Add(ot);
-                //await _context.SaveChangesAsync();
-
                 await _otBLService.PostOtAsync(otDto);
 
                 return RedirectToAction(nameof(Index));
@@ -172,10 +169,11 @@ namespace DOU.GestionOT.WEBI.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var otDto = await _otBLService.GetOtAsync(id);
-            if (otDto != null)
+            if (otDto == null)
             {
-                await _otBLService.DeleteOtAsync(otDto);
+                return NotFound();
             }
+            await _otBLService.DeleteOtAsync(otDto);
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
