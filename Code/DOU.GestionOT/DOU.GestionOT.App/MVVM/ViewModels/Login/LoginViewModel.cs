@@ -1,18 +1,40 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DOU.GestionOT.App.MVVM.Models;
+using DOU.GestionOT.App.MVVM.Models.Login;
 using DOU.GestionOT.App.MVVM.ViewModels.Startup;
 using Newtonsoft.Json;
+using DOU.GestionOT.App.Services.Login;
 
 namespace DOU.GestionOT.App.MVVM.ViewModels.Login
 {
     public partial class LoginViewModel : BaseViewModel
     {
         [ObservableProperty]
+        private RegisterModel registerModel;
+        [ObservableProperty]
+        private LoginModel loginModel;
+
+        [ObservableProperty]
+        private string userName;
+        [ObservableProperty]
+        private bool isAuthenticated;
+
+        [ObservableProperty]
         private string? _email;
 
         [ObservableProperty]
         private string? _password;
+
+        private readonly ILoginClientService _clientService;
+
+        public LoginViewModel(ILoginClientService clientService)
+        {
+            _clientService = clientService;
+            RegisterModel = new();
+            LoginModel = new();
+            IsAuthenticated = false;
+        }
 
         #region Commands
         [RelayCommand]
@@ -41,7 +63,16 @@ namespace DOU.GestionOT.App.MVVM.ViewModels.Login
                     userDetails.RoleText = "Admin Role";
                 }
 
-                // calling api 
+
+                // calling api
+                loginModel.Email = "Admin@gmail.com";
+                loginModel.Password = "Admin@123";
+
+                await _clientService.Login(LoginModel);
+                await GetUserNameFromSecuredStorage();
+
+                var a = await _clientService.GetWeatherForeCastData();
+
 
                 if (Preferences.ContainsKey(nameof(App.UserDetails)))
                 {
@@ -56,6 +87,25 @@ namespace DOU.GestionOT.App.MVVM.ViewModels.Login
         }
 
         #endregion
+        private async Task GetUserNameFromSecuredStorage()
+        {
+            if (!string.IsNullOrEmpty(UserName) && userName! != "Guest")
+            {
+                IsAuthenticated = true;
+                return;
+            }
+
+            string serializedLoginResponseInStorage = await SecureStorage.Default.GetAsync("Authentication");
+            if (serializedLoginResponseInStorage != null)
+            {
+                UserName = System.Text.Json.JsonSerializer.Deserialize<LoginResponse>(serializedLoginResponseInStorage)!.UserName!;
+                IsAuthenticated = true;
+                return;
+            }
+
+            UserName = "Guest";
+            IsAuthenticated = false;
+        }
 
         public override async Task OnAppearing()
         {
@@ -65,6 +115,8 @@ namespace DOU.GestionOT.App.MVVM.ViewModels.Login
                 var userInfo = JsonConvert.DeserializeObject<UserBasicInfo>(userDetailsStr);
                 App.UserDetails = userInfo;
             }
+
+            await GetUserNameFromSecuredStorage();
         }
 
         public override async Task OnDisappearing()

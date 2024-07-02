@@ -1,0 +1,6 @@
+@DOU.GestionOT.AuthAPI_HostAddress = http://localhost:5057
+
+GET {{DOU.GestionOT.AuthAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
