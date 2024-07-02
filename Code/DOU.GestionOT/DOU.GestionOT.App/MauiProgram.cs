@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DOU.GestionOT.App.Handlers;
 using DOU.GestionOT.App.MVVM.Pages;
 using DOU.GestionOT.App.MVVM.Pages.Dashboard;
 using DOU.GestionOT.App.MVVM.Pages.Login;
@@ -15,6 +16,7 @@ using DOU.GestionOT.App.Services.Ot;
 using DOU.GestionOT.BL.Dto;
 using DOU.GestionOT.BL.Services;
 using Microsoft.Extensions.Logging;
+using DOU.GestionOT.App.Services.Login;
 
 namespace DOU.GestionOT.App
 {
@@ -32,6 +34,28 @@ namespace DOU.GestionOT.App
                     fonts.AddFont("Ballega.otf", "Ballega");
                     fonts.AddFont("fontello.ttf", "Icons");
                 });
+
+            builder.Services.AddSingleton<IPlatformHttpMessageHandler>(sp =>
+            {
+#if ANDROID
+                return new Platforms.Android.AndroidHttpMessageHandler();
+#else
+                return null!;
+#endif
+
+            });
+
+            builder.Services.AddHttpClient("custom-httpclient", httpClient =>
+            {
+                //var baseAddress = DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:7297" : "https://localhost:7297";
+                var baseAddress = "http://192.168.0.60:5057";
+                httpClient.BaseAddress = new Uri(baseAddress);
+            }).ConfigureHttpMessageHandlerBuilder(configBuilder =>
+            {
+                var platformMessageHandler = configBuilder.Services.GetRequiredService<IPlatformHttpMessageHandler>();
+                configBuilder.PrimaryHandler = platformMessageHandler.GetHttpMessageHandler();
+            });
+
 
 #if DEBUG
             builder.Logging.AddDebug();
@@ -59,7 +83,10 @@ namespace DOU.GestionOT.App
             builder.Services.AddSingleton<FinishedWorkOrdersViewModel>();
 
             // Services
+            //builder.Services.AddSingleton<IOtService, OtService>();
+            builder.Services.AddSingleton<IOtService, OtAuthService>();
             builder.Services.AddSingleton<IOtBLService, OtBLService>();
+            builder.Services.AddSingleton<ILoginClientService, LoginClientService>();
 
             DependencyService.RegisterSingleton(CreateMapper());
 

@@ -19,6 +19,12 @@ namespace DOU.GestionOT.App.MVVM.ViewModels
         [RelayCommand]
         public async Task SignOut()
         {
+            SecureStorage.Default.Remove("Authentication");
+            GlobalSettings.IsAuthenticated = false;
+            //UserName = "Guest";
+            await Shell.Current.GoToAsync("..");
+
+
             if (Preferences.ContainsKey(nameof(App.UserDetails)))
             {
                 Preferences.Remove(nameof(App.UserDetails));
