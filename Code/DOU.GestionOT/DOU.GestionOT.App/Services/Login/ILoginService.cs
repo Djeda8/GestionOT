@@ -2,10 +2,10 @@
 
 namespace DOU.GestionOT.App.Services.Login
 {
-    public interface ILoginClientService
+    public interface ILoginService
     {
         Task<WeatherForecast[]> GetWeatherForeCastData();
-        Task Login(LoginModel model);
-        Task Register(RegisterModel model);
+        Task<LoginResponse> Login(LoginModel model);
+        Task<RegisterResponse> Register(RegisterModel model);
     }
 }

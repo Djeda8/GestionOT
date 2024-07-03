@@ -4,41 +4,50 @@ using System.Text.Json;
 
 namespace DOU.GestionOT.App.Services.Login
 {
-    public class LoginClientService : ILoginClientService
+    public class LoginService : ILoginService
     {
         private readonly IHttpClientFactory httpClientFactory;
-        public LoginClientService(IHttpClientFactory httpClientFactory)
+        public LoginService(IHttpClientFactory httpClientFactory)
         {
             this.httpClientFactory = httpClientFactory;
         }
 
-        public async Task Register(RegisterModel model)
+        public async Task<RegisterResponse> Register(RegisterModel model)
         {
             // model.Email = "maui@gmail.com"; model.Password = "Maui@123";
+
             var httpClient = httpClientFactory.CreateClient("custom-httpclient");
 
             var result = await httpClient.PostAsJsonAsync("/register", model);
 
             if (result.IsSuccessStatusCode)
             {
-                await Shell.Current.DisplayAlert("Alert", "sucessfully Register", "Ok");
+                var response = await result.Content.ReadFromJsonAsync<RegisterResponse>();
+
+                //await Shell.Current.DisplayAlert("Alert", "sucessfully Register", "Ok");
+
+                if (response is not null)
+                {
+                    return response;
+                }
             }
-            await Shell.Current.DisplayAlert("Alert", result.ReasonPhrase, "Ok"); ;
+            //await Shell.Current.DisplayAlert("Alert", result.ReasonPhrase, "Ok");
+            return null;
         }
 
-        public async Task Login(LoginModel model)
+        public async Task<LoginResponse> Login(LoginModel model)
         {
             //model.Email = "maui@gmail.com"; model.Password = "Maui@123";
+
             var httpClient = httpClientFactory.CreateClient("custom-httpclient");
             var result = await httpClient.PostAsJsonAsync("/login", model);
-            //var result = await _client.PostAsJsonAsync($"http://192.168.0.60:5057/login", model);
+
             var response = await result.Content.ReadFromJsonAsync<LoginResponse>();
             if (response is not null)
             {
-                var serializeResponse = JsonSerializer.Serialize(
-                    new LoginResponse() { AccessToken = response.AccessToken, RefreshToken = response.RefreshToken, UserName = model.Email });
-                await SecureStorage.Default.SetAsync("Authentication", serializeResponse);
+                return response;
             }
+            return null;
         }
 
         public async Task<WeatherForecast[]> GetWeatherForeCastData()
