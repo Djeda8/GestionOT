@@ -1,17 +1,8 @@
 ﻿using DOU.GestionOT.BL.Dto;
-using DOU.GestionOT.BL.Services;
-using DOU.GestionOT.DAL;
-using DOU.GestionOT.DAL.Entities;
 using DOU.GestionOT.WEBI.Controllers;
 using DOU.GestionOT.WEBI.Models;
 using DOU.GestionOT.WEBI.Test.Fixtures;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Moq;
-using System.Reflection;
 
 namespace DOU.GestionOT.WEBI.Test.Controllers
 {
@@ -208,7 +199,7 @@ namespace DOU.GestionOT.WEBI.Test.Controllers
             Assert.Null(redirectToActionResult.ControllerName);
             Assert.Equal("Index", redirectToActionResult.ActionName);
         }
-        
+
         [Fact]
         public async Task EditPost_ReturnsNotFound_WhenModelAndIdIsDifferent()
         {

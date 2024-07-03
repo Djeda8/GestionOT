@@ -86,7 +86,7 @@ namespace DOU.GestionOT.App
             //builder.Services.AddSingleton<IOtService, OtService>();
             builder.Services.AddSingleton<IOtService, OtAuthService>();
             builder.Services.AddSingleton<IOtBLService, OtBLService>();
-            builder.Services.AddSingleton<ILoginClientService, LoginClientService>();
+            builder.Services.AddSingleton<ILoginService, LoginService>();
 
             DependencyService.RegisterSingleton(CreateMapper());
 

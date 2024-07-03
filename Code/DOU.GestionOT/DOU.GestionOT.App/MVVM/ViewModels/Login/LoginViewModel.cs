@@ -26,9 +26,9 @@ namespace DOU.GestionOT.App.MVVM.ViewModels.Login
         [ObservableProperty]
         private string? _password;
 
-        private readonly ILoginClientService _clientService;
+        private readonly ILoginService _clientService;
 
-        public LoginViewModel(ILoginClientService clientService)
+        public LoginViewModel(ILoginService clientService)
         {
             _clientService = clientService;
             RegisterModel = new();
@@ -68,7 +68,12 @@ namespace DOU.GestionOT.App.MVVM.ViewModels.Login
                 loginModel.Email = "Admin@gmail.com";
                 loginModel.Password = "Admin@123";
 
-                await _clientService.Login(LoginModel);
+                var response = await _clientService.Login(LoginModel);
+
+                //var serializeResponse = JsonSerializer.Serialize(
+                //    new LoginResponse() { AccessToken = response.AccessToken, RefreshToken = response.RefreshToken, UserName = model.Email });
+                //await SecureStorage.Default.SetAsync("Authentication", serializeResponse);
+
                 await GetUserNameFromSecuredStorage();
 
                 var a = await _clientService.GetWeatherForeCastData();
