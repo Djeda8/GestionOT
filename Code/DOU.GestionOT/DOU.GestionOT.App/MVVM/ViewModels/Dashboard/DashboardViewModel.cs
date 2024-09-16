@@ -37,8 +37,8 @@ namespace DOU.GestionOT.App.MVVM.ViewModels.Dashboard
             {
                 var userInfo = JsonConvert.DeserializeObject<UserBasicInfo>(userDetailsStr);
                 App.UserDetails = userInfo;
-                await Shell.Current.GoToAsync($"{nameof(LoginPage)}");
-                // await AppConstant.AddFlyoutMenusDetails();
+                //await Shell.Current.GoToAsync($"{nameof(LoginPage)}");
+                 await AppConstant.AddFlyoutMenusDetails();
                 // navigate to Dashboard
             }
         }

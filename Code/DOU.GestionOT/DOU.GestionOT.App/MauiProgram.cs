@@ -64,7 +64,7 @@ namespace DOU.GestionOT.App
             // Views
             builder.Services.AddSingleton<AppShell>();
             builder.Services.AddSingleton<LoginPage>();
-            builder.Services.AddSingleton<DashboardPage>();
+            builder.Services.AddTransient<DashboardPage>();
             builder.Services.AddSingleton<StudentDashboardPage>();
             builder.Services.AddSingleton<TeacherDashboardPage>();
             builder.Services.AddSingleton<AdminDashboardPage>();

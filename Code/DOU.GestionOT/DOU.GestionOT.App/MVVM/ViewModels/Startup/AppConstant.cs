@@ -147,7 +147,14 @@ namespace DOU.GestionOT.App.MVVM.ViewModels.Startup
                     }
                     else
                     {
-                        await Shell.Current.GoToAsync($"//{nameof(AdminDashboardPage)}");
+                        try
+                        {
+                            await Shell.Current.GoToAsync($"//{nameof(AdminDashboardPage)}");
+                        }
+                        catch (Exception ex)
+                        {
+                            var a = ex.Message;
+                        }
                     }
                 }
             }

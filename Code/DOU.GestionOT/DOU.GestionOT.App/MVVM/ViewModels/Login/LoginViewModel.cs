@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using DOU.GestionOT.App.MVVM.Models;
 using DOU.GestionOT.App.MVVM.Models.Login;
 using DOU.GestionOT.App.MVVM.ViewModels.Startup;
-using Newtonsoft.Json;
+using System.Text.Json;
 using DOU.GestionOT.App.Services.Login;
 
 namespace DOU.GestionOT.App.MVVM.ViewModels.Login
@@ -70,24 +70,32 @@ namespace DOU.GestionOT.App.MVVM.ViewModels.Login
 
                 var response = await _clientService.Login(LoginModel);
 
-                //var serializeResponse = JsonSerializer.Serialize(
-                //    new LoginResponse() { AccessToken = response.AccessToken, RefreshToken = response.RefreshToken, UserName = model.Email });
-                //await SecureStorage.Default.SetAsync("Authentication", serializeResponse);
+                LoginResponse loginResponse = new LoginResponse() { AccessToken = response.AccessToken, RefreshToken = response.RefreshToken, UserName = loginModel.Email };
+
+                var serializeResponse = JsonSerializer.Serialize(loginResponse);
+                
+                await SecureStorage.Default.SetAsync("Authentication", serializeResponse);
 
                 await GetUserNameFromSecuredStorage();
 
                 var a = await _clientService.GetWeatherForeCastData();
-
 
                 if (Preferences.ContainsKey(nameof(App.UserDetails)))
                 {
                     Preferences.Remove(nameof(App.UserDetails));
                 }
 
-                string userDetailStr = JsonConvert.SerializeObject(userDetails);
+                string userDetailStr = Newtonsoft.Json.JsonConvert.SerializeObject(userDetails);
                 Preferences.Set(nameof(App.UserDetails), userDetailStr);
                 App.UserDetails = userDetails;
-                await AppConstant.AddFlyoutMenusDetails();
+                try
+                {
+                    await AppConstant.AddFlyoutMenusDetails();
+                }
+                catch (Exception ex)
+                {
+                    var b = ex.Message;
+                }
             }
         }
 
@@ -117,7 +125,7 @@ namespace DOU.GestionOT.App.MVVM.ViewModels.Login
             string userDetailsStr = Preferences.Get(nameof(App.UserDetails), "");
             if (!string.IsNullOrWhiteSpace(userDetailsStr))
             {
-                var userInfo = JsonConvert.DeserializeObject<UserBasicInfo>(userDetailsStr);
+                var userInfo = Newtonsoft.Json.JsonConvert.DeserializeObject<UserBasicInfo>(userDetailsStr);
                 App.UserDetails = userInfo;
             }
 

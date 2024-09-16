@@ -5,6 +5,8 @@
              x:Class="DOU.GestionOT.App.MVVM.Pages.Login.LoginPage"
              xmlns:handlers="clr-namespace:DOU.GestionOT.App.Handlers"
              Shell.NavBarIsVisible="False"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.TabBarIsVisible="False"
              x:DataType="viewmodels:LoginViewModel"
              Title="LoginPage">
     <VerticalStackLayout Spacing="25" Padding="30,0" VerticalOptions="Center">
